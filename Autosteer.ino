@@ -17,10 +17,10 @@
 SimpleKalmanFilter simpleKalmanFilter(1, 1, 0.01);
 struct wasLess
 {
-  float rate = 4000; // user1 * 40
-  float accelRate = 130;
-  float bumpLimit = 2; // user3 / 100
-  uint8_t user4 = 5;
+  float rate = 4000; // user1 *         // (100 default)
+  float accelRate = 130;                // (130 default)
+  float bumpLimit = 2; // user3 / 100   // (50 default)
+  uint8_t user4 = 5;                    // (5 default)
 };
 wasLess wasLessConfig;
 
