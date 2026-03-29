@@ -72,8 +72,8 @@ float kalman = 0.0, oldGyro = 0, gyro = 0, bump = 0;
 
 #include <Wire.h>
 #include <EEPROM.h>
-#include "zADS1115.h"
-ADS1115_lite adc(ADS1115_DEFAULT_ADDRESS); // Use this for the 16-bit version ADS1115
+//#include "zADS1115.h"
+//ADS1115_lite adc(ADS1115_DEFAULT_ADDRESS); // Use this for the 16-bit version ADS1115
 
 #include <IPAddress.h>
 #include "BNO08x_AOG.h"
@@ -239,16 +239,16 @@ void autosteerSetup()
   Wire1.end();
   Wire1.begin();
 
-  // Check ADC
-  if (adc.testConnection())
-  {
-    Serial.println("ADC Connecton OK");
-  }
-  else
-  {
-    Serial.println("ADC Connecton FAILED!");
-    Autosteer_running = false;
-  }
+  // // Check ADC
+  // if (adc.testConnection())
+  // {
+  //   Serial.println("ADC Connecton OK");
+  // }
+  // else
+  // {
+  //   Serial.println("ADC Connecton FAILED!");
+  //   Autosteer_running = false;
+  // }
 
   // 50Khz I2C
   // TWBR = 144;   //Is this needed?
@@ -289,8 +289,8 @@ void autosteerSetup()
     return;
   }
 
-  adc.setSampleRate(ADS1115_REG_CONFIG_DR_128SPS); // 128 samples per second
-  adc.setGain(ADS1115_REG_CONFIG_PGA_6_144V);
+  //adc.setSampleRate(ADS1115_REG_CONFIG_DR_128SPS); // 128 samples per second
+  //adc.setGain(ADS1115_REG_CONFIG_PGA_6_144V);
 
 } // End of Setup
 
@@ -507,18 +507,18 @@ void autosteerLoop()
       // get steering position
       if (steerConfig.SingleInputWAS) // Single Input ADS
       {
-        adc.setMux(ADS1115_REG_CONFIG_MUX_SINGLE_0);
-        steeringPosition = adc.getConversion();
-        adc.triggerConversion(); // ADS1115 Single Mode
+        // adc.setMux(ADS1115_REG_CONFIG_MUX_SINGLE_0);
+        // steeringPosition = adc.getConversion();
+        // adc.triggerConversion(); // ADS1115 Single Mode
 
         steeringPosition = (steeringPosition >> 1); // bit shift by 2  0 to 13610 is 0 to 5v
         helloSteerPosition = steeringPosition - 6800;
       }
       else // ADS1115 Differential Mode
       {
-        adc.setMux(ADS1115_REG_CONFIG_MUX_DIFF_0_1);
-        steeringPosition = adc.getConversion();
-        adc.triggerConversion();
+        // adc.setMux(ADS1115_REG_CONFIG_MUX_DIFF_0_1);
+        // steeringPosition = adc.getConversion();
+        // adc.triggerConversion();
 
         steeringPosition = (steeringPosition >> 1); // bit shift by 2  0 to 13610 is 0 to 5v
         helloSteerPosition = steeringPosition - 6800;
